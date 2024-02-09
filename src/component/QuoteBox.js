@@ -17,7 +17,7 @@ const QuoteBox = ({ text, email, handleClick, RandomColor }) => {
             className="button"
             id="tweet-quote"
             title="Tweet this quote!"
-            target="_top"
+            target="_blank"
             href="https://www.linkedin.com/in/jyoti-prakash-8287151bb/"
             style={{ backgroundColor: RandomColor }}
           >
