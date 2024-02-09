@@ -1,5 +1,6 @@
 import "./quotes.css";
 const QuoteBox = ({ text, email, handleClick, RandomColor }) => {
+
   return (
     <>
       <div id="quote-box" style={{}}>

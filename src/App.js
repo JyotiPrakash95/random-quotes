@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import QuoteBox from "./component/QuoteBox";
+import "./App.css";
 
 const App = () => {
   const [quote, setQuote] = useState({ text: "", email: "" });
   const [genrateColor, setColor] = useState("#000000"); // Initial color
-  // const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchQuote();
-    // setLoading(false);
+    setLoading(true);
     handleClick();
   }, []);
 
-  // setTimeout(() => {
-  //   setLoading(false);
-  // }, 3000);
+  setTimeout(() => {
+    setLoading(false);
+  }, 500);
   const fetchQuote = async () => {
     try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
-      );
+      const response = await fetch("https://type.fit/api/quotes");
       const data = await response.json();
       const randomIndex = Math.floor(Math.random() * data.length);
       const randomData = data[randomIndex];
-      setQuote({ text: randomData.body, email: randomData.email });
+      setQuote({ text: randomData.text, email: randomData.author });
       // setLoading(false); // Set loading to false after data is fetched
     } catch (error) {
       console.error("Error fetching quote:", error);
@@ -31,28 +30,24 @@ const App = () => {
   };
 
   const handleClick = () => {
-    // setLoading(true);
     fetchQuote();
     const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
     setColor(randomColor);
     document.body.style.backgroundColor = randomColor;
     document.body.style.color = randomColor;
   };
-  // if (isLoading) {
-  //   return;
-  // }
   return (
     <div>
-      {/* {isLoading ? (
-        <div style={{ color: "black", fontWeight: "bold" }}>Loading...</div>
-      ) : ( */}
+      {isLoading ? (
+        <div className="spinner"></div>
+      ) : (
         <QuoteBox
           text={quote.text}
           email={quote.email}
           handleClick={handleClick}
           RandomColor={genrateColor}
         />
-      {/* )} */}
+      )}
     </div>
   );
 };
